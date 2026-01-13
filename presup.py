@@ -8,7 +8,7 @@ st.set_page_config(
     layout="wide",
 )
 
-DEFAULT_FILE = Path("presup_py_v2.xlsx")  # dejalo en el repo (misma carpeta que app.py)
+DEFAULT_FILE = Path("presup_py_v3.xlsx")  # dejalo en el repo (misma carpeta que app.py)
 SHEET_NAME = "Sheet1"
 MILLION = 1_000_000
 
