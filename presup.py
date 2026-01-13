@@ -92,7 +92,7 @@ df_main = df[["Sección", "Categoría", "Código", "Item_2025", "Monto_2025_MM",
 display_table(df_main, key="tabla_completa")
 
 # 4) Top 10 por monto 2026
-st.subheader("2) Top 10 ítems de mayor monto en 2026")
+st.subheader("2) Top 10 organismos de mayor monto en 2026")
 df_top_2026 = (
     df_main.sort_values("Monto_2026_MM", ascending=False)
            .head(10)
@@ -101,21 +101,21 @@ df_top_2026 = (
 display_table(df_top_2026, key="top10_monto_2026")
 
 # 5) Top 10 subas % (positivas)
-st.subheader("3) Top 10 ítems con mayor variación porcentual positiva (2026 vs 2025)")
+st.subheader("3) Top 10 organismos con mayor variación porcentual positiva (2026 vs 2025)")
 df_pos = df_main.copy()
 df_pos = df_pos[df_pos["Variación %"].notna() & (df_pos["Variación %"] > 0)]
 df_top_pos = df_pos.sort_values("Variación %", ascending=False).head(10).reset_index(drop=True)
 display_table(df_top_pos, key="top10_subas")
 
 # 6) Top 10 bajas % (negativas)
-st.subheader("4) Top 10 ítems con mayor variación porcentual negativa (2026 vs 2025)")
+st.subheader("4) Top 10 organismos con mayor variación porcentual negativa (2026 vs 2025)")
 df_neg = df_main.copy()
 df_neg = df_neg[df_neg["Variación %"].notna() & (df_neg["Variación %"] < 0)]
 df_top_neg = df_neg.sort_values("Variación %", ascending=True).head(10).reset_index(drop=True)
 display_table(df_top_neg, key="top10_bajas")
 
 # 7) Items nuevos 2026 (no estaban en 2025)
-st.subheader("5) Ítems que aparecen en 2026 y no existían en 2025")
+st.subheader("5) Organismos que aparecen en 2026 y no existían en 2025")
 df_new = df[df["Item_2025"].eq("Item inexistente")].copy()
 df_new_show = df_new[["Sección", "Categoría", "Código", "Item_2025", "Monto_2025_MM", "Item_2026", "Monto_2026_MM", "Variación %"]]
 if df_new_show.empty:
