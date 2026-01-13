@@ -92,7 +92,7 @@ df_main = df[["Sección", "Categoría", "Código", "Item_2025", "Monto_2025_MM",
 display_table(df_main, key="tabla_completa")
 
 # 4) Top 10 por monto 2026
-st.subheader("2) Top 10 organismos de mayor monto en 2026")
+st.subheader("2) Top 10 organismos con mayor monto asignado en 2026")
 df_top_2026 = (
     df_main.sort_values("Monto_2026_MM", ascending=False)
            .head(10)
