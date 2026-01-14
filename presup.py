@@ -72,9 +72,9 @@ with st.sidebar:
         st.stop()
     data_source = DEFAULT_FILE
     #st.info("Usando archivo del repositorio: presup_py.xlsx")
-    else:
-        data_source = uploaded
-        st.success("Usando archivo subido")
+    #else:
+    data_source = uploaded
+    #st.success("Usando archivo subido")
     st.divider()
     st.subheader("Rankings (Top N)")
     top_n_monto = st.selectbox("Top por mayor gasto 2026", options=[5, 10, 15], index=1)
