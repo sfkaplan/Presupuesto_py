@@ -61,7 +61,7 @@ st.title("Presupuesto General de la Nación (PY) – Comparación 2025 vs 2026")
 st.caption("Clasificación Institucional – Montos expresados en **millones de guaraníes (Gs)**.")
 
 with st.sidebar:
-    st.header("Fuente de datos")
+    st.header("Fuente de datos: Presupuesto General de la Nación")
     #uploaded = st.file_uploader("Subí el Excel final (opcional)", type=["xlsx"])
     #if uploaded is None:
     if not DEFAULT_FILE.exists():
@@ -76,7 +76,7 @@ with st.sidebar:
     #data_source = uploaded
     #st.success("Usando archivo subido")
     st.divider()
-    st.subheader("Rankings (Top N)")
+    st.subheader("Rankings")
     top_n_monto = st.selectbox("Top por mayor gasto 2026", options=[5, 10, 15], index=1)
     top_n_pos = st.selectbox("Top por variación positiva", options=[5, 10, 15], index=1)
     top_n_neg = st.selectbox("Top por variación negativa", options=[5, 10, 15], index=1)
