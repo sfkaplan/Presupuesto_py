@@ -98,28 +98,35 @@ st.subheader("1) Tabla completa (2025 vs 2026)")
 df_main = df[["Sección", "Categoría", "Código", "Item_2025", "Monto_2025_MM", "Item_2026", "Monto_2026_MM", "Variación %"]].copy()
 display_table(df_main, key="tabla_completa")
 
-# 4) Top 10 por monto 2026
-st.subheader("2) Top 10 organismos con mayor monto asignado en 2026")
+# 4) Top N por monto 2026
+st.subheader(f"2) Ítems con mayor monto en 2026 (Top {top_n})")
 df_top_2026 = (
     df_main.sort_values("Monto_2026_MM", ascending=False)
-           .head(10)
+           .head(top_n)
            .reset_index(drop=True)
 )
-display_table(df_top_2026, key="top10_monto_2026")
+display_table(df_top_2026, key=f"top_monto_2026_{top_n}")
 
-# 5) Top 10 subas % (positivas)
-st.subheader("3) Top 10 organismos con mayor variación porcentual positiva (2026 vs 2025)")
-df_pos = df_main.copy()
-df_pos = df_pos[df_pos["Variación %"].notna() & (df_pos["Variación %"] > 0)]
-df_top_pos = df_pos.sort_values("Variación %", ascending=False).head(10).reset_index(drop=True)
-display_table(df_top_pos, key="top10_subas")
+# 5) Top N subas %
+st.subheader(f"3) Mayor variación porcentual positiva (Top {top_n})")
+df_pos = df_main[df_main["Variación %"].notna() & (df_main["Variación %"] > 0)]
+df_top_pos = (
+    df_pos.sort_values("Variación %", ascending=False)
+          .head(top_n)
+          .reset_index(drop=True)
+)
+display_table(df_top_pos, key=f"top_subas_{top_n}")
 
-# 6) Top 10 bajas % (negativas)
-st.subheader("4) Top 10 organismos con mayor variación porcentual negativa (2026 vs 2025)")
-df_neg = df_main.copy()
-df_neg = df_neg[df_neg["Variación %"].notna() & (df_neg["Variación %"] < 0)]
-df_top_neg = df_neg.sort_values("Variación %", ascending=True).head(10).reset_index(drop=True)
-display_table(df_top_neg, key="top10_bajas")
+# 6) Top N bajas %
+st.subheader(f"4) Mayor variación porcentual negativa (Top {top_n})")
+df_neg = df_main[df_main["Variación %"].notna() & (df_main["Variación %"] < 0)]
+df_top_neg = (
+    df_neg.sort_values("Variación %", ascending=True)
+          .head(top_n)
+          .reset_index(drop=True)
+)
+display_table(df_top_neg, key=f"top_bajas_{top_n}")
+
 
 # 7) Items nuevos 2026 (no estaban en 2025)
 st.subheader("5) Organismos que aparecen en 2026 y no existían en 2025")
