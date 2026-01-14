@@ -98,34 +98,34 @@ st.subheader("1) Tabla completa (2025 vs 2026)")
 df_main = df[["Sección", "Categoría", "Código", "Item_2025", "Monto_2025_MM", "Item_2026", "Monto_2026_MM", "Variación %"]].copy()
 display_table(df_main, key="tabla_completa")
 
-# 4) Top N por monto 2026
-st.subheader(f"2) Ítems con mayor monto en 2026 (Top {top_n})")
+# 4) Top por monto 2026
+st.subheader(f"2) Ítems con mayor monto en 2026 (Top {top_n_monto})")
 df_top_2026 = (
     df_main.sort_values("Monto_2026_MM", ascending=False)
-           .head(top_n)
+           .head(top_n_monto)
            .reset_index(drop=True)
 )
-display_table(df_top_2026, key=f"top_monto_2026_{top_n}")
+display_table(df_top_2026, key=f"top_monto_2026_{top_n_monto}")
 
-# 5) Top N subas %
-st.subheader(f"3) Mayor variación porcentual positiva (Top {top_n})")
+# 5) Top subas %
+st.subheader(f"3) Mayor variación porcentual positiva (Top {top_n_pos})")
 df_pos = df_main[df_main["Variación %"].notna() & (df_main["Variación %"] > 0)]
 df_top_pos = (
     df_pos.sort_values("Variación %", ascending=False)
-          .head(top_n)
+          .head(top_n_pos)
           .reset_index(drop=True)
 )
-display_table(df_top_pos, key=f"top_subas_{top_n}")
+display_table(df_top_pos, key=f"top_subas_{top_n_pos}")
 
-# 6) Top N bajas %
-st.subheader(f"4) Mayor variación porcentual negativa (Top {top_n})")
+# 6) Top bajas %
+st.subheader(f"4) Mayor variación porcentual negativa (Top {top_n_neg})")
 df_neg = df_main[df_main["Variación %"].notna() & (df_main["Variación %"] < 0)]
 df_top_neg = (
     df_neg.sort_values("Variación %", ascending=True)
-          .head(top_n)
+          .head(top_n_neg)
           .reset_index(drop=True)
 )
-display_table(df_top_neg, key=f"top_bajas_{top_n}")
+display_table(df_top_neg, key=f"top_bajas_{top_n_neg}")
 
 
 # 7) Items nuevos 2026 (no estaban en 2025)
