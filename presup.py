@@ -73,7 +73,7 @@ with st.sidebar:
     data_source = DEFAULT_FILE
     #st.info("Usando archivo del repositorio: presup_py.xlsx")
     #else:
-    data_source = uploaded
+    #data_source = uploaded
     #st.success("Usando archivo subido")
     st.divider()
     st.subheader("Rankings (Top N)")
