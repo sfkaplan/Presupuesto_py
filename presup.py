@@ -61,20 +61,27 @@ st.title("Presupuesto General de la Nación (PY) – Comparación 2025 vs 2026")
 st.caption("Clasificación Institucional – Montos expresados en **millones de guaraníes (Gs)**.")
 
 with st.sidebar:
-    st.header("Fuente de datos")
-    uploaded = st.file_uploader("Subí el Excel final (opcional)", type=["xlsx"])
-    if uploaded is None:
-        if not DEFAULT_FILE.exists():
-            st.error(
-                "No encuentro el archivo 'presup_py.xlsx' en el repositorio. "
-                "Subilo con el uploader o agregalo al repo."
-            )
-            st.stop()
-        data_source = DEFAULT_FILE
-        st.info("Usando archivo del repositorio: presup_py.xlsx")
-    else:
-        data_source = uploaded
-        st.success("Usando archivo subido")
+    #st.header("Fuente de datos")
+    #uploaded = st.file_uploader("Subí el Excel final (opcional)", type=["xlsx"])
+    #if uploaded is None:
+    #    if not DEFAULT_FILE.exists():
+    #        st.error(
+    #            "No encuentro el archivo 'presup_py.xlsx' en el repositorio. "
+    #            "Subilo con el uploader o agregalo al repo."
+    #        )
+    #        st.stop()
+    #    data_source = DEFAULT_FILE
+    #    st.info("Usando archivo del repositorio: presup_py.xlsx")
+    #else:
+    #    data_source = uploaded
+    #    st.success("Usando archivo subido")
+    st.divider()
+    st.subheader("Rankings (Top N)")
+    top_n_monto = st.selectbox("Top por mayor gasto 2026", options=[5, 10, 15], index=1)
+    top_n_pos = st.selectbox("Top por variación positiva", options=[5, 10, 15], index=1)
+    top_n_neg = st.selectbox("Top por variación negativa", options=[5, 10, 15], index=1)
+
+    st.divider()
 
 # Cargar y preparar
 df_raw = load_excel(data_source)
