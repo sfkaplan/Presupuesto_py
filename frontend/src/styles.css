@@ -1,0 +1,105 @@
+:root { color-scheme: dark; }
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: #e2e8f0;
+}
+.wrap { padding: 20px; }
+.header {
+  background: linear-gradient(90deg, rgba(14,165,233,0.15) 0%, rgba(139,92,246,0.15) 100%);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+}
+.headerRow { display:flex; align-items:center; gap:16px; }
+.flag {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: linear-gradient(135deg,#0ea5e9,#8b5cf6);
+  display: flex; align-items:center; justify-content:center;
+  font-size: 24px;
+}
+.title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #0ea5e9, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.subtitle { margin: 6px 0 0; font-size: 14px; color: #94a3b8; }
+.small { margin: 12px 0 0; font-size: 12px; color: #64748b; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 16px; margin-top: 16px; }
+.card {
+  background: rgba(30,41,59,0.8);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.h2 { margin: 0 0 20px; font-size: 18px; font-weight: 900; }
+.h3 { margin: 0; font-size: 16px; font-weight: 900; }
+.h3.blue { color:#0ea5e9; }
+.h3.purple { color:#8b5cf6; }
+.muted { margin: 6px 0 0; font-size: 12px; color: #64748b; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 14px; }
+thead tr { border-bottom: 2px solid #334155; }
+th { padding: 10px 8px; text-align: left; color: #94a3b8; font-weight: 800; }
+td { padding: 10px 8px; border-bottom: 1px solid #1e293b; }
+tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+.mono { font-family: inherit; }
+.pill-green {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(16,185,129,0.2);
+  color: #10b981;
+  font-weight: 800;
+  white-space: nowrap;
+  display: inline-block;
+}
+.label { display:block; margin-bottom: 8px; font-size: 14px; color:#94a3b8; font-weight: 800; }
+select {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  background: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 8px;
+  color: #e2e8f0;
+  cursor: pointer;
+  outline: none;
+}
+.chips { margin-top: 12px; display:flex; gap:8px; flex-wrap: wrap; }
+.chip { padding: 4px 12px; border-radius: 999px; font-size: 12px; }
+.chip-blue { background: rgba(14,165,233,0.2); color: #0ea5e9; }
+.chip-purple { background: rgba(139,92,246,0.2); color: #8b5cf6; }
+
+.cards3 { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+.kpiLabel { font-size: 12px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
+.kpiLabel.blue { color:#0ea5e9; }
+.kpiLabel.purple { color:#8b5cf6; }
+.kpiLabel.green { color:#10b981; }
+.kpiLabel.red { color:#ef4444; }
+.kpiValue { font-size: 28px; font-weight: 900; margin-top: 8px; }
+
+.cardBlue { border: 1px solid rgba(14,165,233,0.3); background: linear-gradient(135deg, rgba(14,165,233,0.2) 0%, rgba(14,165,233,0.05) 100%); }
+.cardPurple { border: 1px solid rgba(139,92,246,0.3); background: linear-gradient(135deg, rgba(139,92,246,0.2) 0%, rgba(139,92,246,0.05) 100%); }
+.cardGreen { border: 1px solid rgba(16,185,129,0.3); background: linear-gradient(135deg, rgba(16,185,129,0.2) 0%, rgba(16,185,129,0.05) 100%); }
+.cardRed { border: 1px solid rgba(239,68,68,0.3); background: linear-gradient(135deg, rgba(239,68,68,0.2) 0%, rgba(239,68,68,0.05) 100%); }
+
+.btnrow { display:flex; gap:8px; margin-bottom: 16px; }
+button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  color: #e2e8f0;
+  background: transparent;
+  border: 1px solid #334155;
+}
+button.active { background: linear-gradient(135deg, #0ea5e9, #8b5cf6); border: none; }
+
+.footer { text-align:center; margin-top: 18px; padding: 16px; color:#64748b; font-size: 12px; }
