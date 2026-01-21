@@ -44,52 +44,14 @@ const entidadesData = {
 };
 
 const objetosGasto = {
-  100: {
-    nombre: "Servicios Personales",
-    descripcion: "Sueldos, salarios, beneficios sociales del personal",
-    color: "#3b82f6"
-  },
-  200: {
-    nombre: "Servicios No Personales",
-    descripcion: "Servicios básicos, alquileres, mantenimiento, seguros",
-    color: "#10b981"
-  },
-  300: {
-    nombre: "Bienes de Consumo e Insumos",
-    descripcion: "Alimentos, medicamentos, útiles de oficina, combustibles",
-    color: "#f59e0b"
-  },
-  400: {
-    nombre: "Bienes de Cambio",
-    descripcion: "Equipos, muebles, vehículos, construcciones",
-    color: "#8b5cf6"
-  },
-  500: {
-    nombre: "Inversión Física",
-    descripcion: "Obras, infraestructura, equipamiento de capital",
-    color: "#ef4444"
-  },
-  600: {
-    nombre: "Inversión Financiera",
-    descripcion: "Adquisición de activos financieros",
-    color: "#14b8a6"
-  },
-  700: {
-    nombre: "Servicio de Deuda Pública",
-    descripcion: "Pago de intereses y amortización de la deuda pública",
-    color: "#f43f5e"
-  },
-  800: {
-    nombre: "Transferencias",
-    descripcion: "Transferencias a gobiernos, ONGs, subsidios sociales",
-    color: "#ec4899"
-  },
-  900: {
-    nombre: "Otros Gastos",
-    descripcion: "Otros gastos no clasificados en categorías anteriores",
-    color: "#6b7280"
-  }
-};
+  100: { nombre: "Servicios Personales", color: "#0ea5e9" },
+  200: { nombre: "Servicios No Personales", color: "#8b5cf6" },
+  300: { nombre: "Bienes de Consumo e Insumos", color: "#10b981" },
+  400: { nombre: "Bienes de Cambio", color: "#f59e0b" },
+  500: { nombre: "Inversión Física", color: "#ef4444" },
+  800: { nombre: "Transferencias", color: "#ec4899" },
+  900: { nombre: "Otros Gastos", color: "#6b7280" }
+
 
 };
 
