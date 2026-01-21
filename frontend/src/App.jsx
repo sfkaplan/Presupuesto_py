@@ -35,6 +35,15 @@ const clampText = (s, max = 60) => {
   return str.length > max ? str.slice(0, max - 1) + "…" : str;
 };
 
+// Normaliza strings para matchear aunque cambien mayúsculas/acentos/espacios
+const norm = (s) =>
+  String(s || "")
+    .trim()
+    .toUpperCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // quita acentos
+    .replace(/\s+/g, " "); // colapsa espacios
+
 // =========================
 // Objetos de gasto (FUENTE ÚNICA)
 // =========================
@@ -304,17 +313,32 @@ export default function App() {
     return Array.from(s).sort((a, b) => a.localeCompare(b));
   }, [top15Monto2026, top15VarPos]);
 
-  const [selectedEntity, setSelectedEntity] = useState(() =>
-    selectableEntities.includes("Ministerio de Educación y Ciencias")
-      ? "Ministerio de Educación y Ciencias"
-      : selectableEntities[0] || ""
-  );
+  const [selectedEntity, setSelectedEntity] = useState(() => {
+    // Preferir MEC si está en la lista (aunque venga con distinto case/acentos)
+    const wanted = "Ministerio de Educación y Ciencias";
+    const found =
+      selectableEntities.find((x) => norm(x) === norm(wanted)) ||
+      selectableEntities[0] ||
+      "";
+    return found;
+  });
 
   const [comparisonMode, setComparisonMode] = useState("absoluto");
 
-  // Data-driven organismos por objeto (JSON incremental)
-  const entidadesData = organismosPorObjeto?.organismos || {};
-  const entityRaw = entidadesData[selectedEntity]; // puede ser undefined
+  // =========================
+  // Lookup robusto en organismos_por_objeto.json
+  // =========================
+  const entityRaw = useMemo(() => {
+    const dict = organismosPorObjeto?.organismos || {};
+    if (!dict || typeof dict !== "object") return undefined;
+
+    // 1) match exacto
+    if (dict[selectedEntity]) return dict[selectedEntity];
+
+    // 2) match normalizado (case/acentos/espacios)
+    const key = Object.keys(dict).find((k) => norm(k) === norm(selectedEntity));
+    return key ? dict[key] : undefined;
+  }, [selectedEntity]);
 
   // Compat shape con el resto del dashboard
   const entityData = entityRaw
@@ -322,7 +346,8 @@ export default function App() {
         codigo: entityRaw.codigo,
         nivel: entityRaw.nivel,
         pgn2025: entityRaw.pgn?.["2025"] || {},
-        pgn2026: entityRaw.pgn?.["2026"] || {}
+        pgn2026: entityRaw.pgn?.["2026"] || {},
+        totales: entityRaw.totales || null
       }
     : undefined;
 
@@ -367,10 +392,19 @@ export default function App() {
 
   const totalData = useMemo(() => {
     if (!entityData) return { total2025: 0, total2026: 0, variacion: 0 };
-    const total2025 = sumObj(entityData.pgn2025);
-    const total2026 = sumObj(entityData.pgn2026);
+
+    // Si vienen totales (control), los usamos; si no, sumamos
+    const sum2025 = sumObj(entityData.pgn2025);
+    const sum2026 = sumObj(entityData.pgn2026);
+
+    const total2025 =
+      Number(entityData.totales?.["2025"]) || Number(entityData.totales?.[2025]) || sum2025;
+    const total2026 =
+      Number(entityData.totales?.["2026"]) || Number(entityData.totales?.[2026]) || sum2026;
+
     const variacion =
       total2025 > 0 ? ((total2026 - total2025) / total2025) * 100 : 0;
+
     return { total2025, total2026, variacion: Number(variacion.toFixed(1)) };
   }, [entityData]);
 
@@ -581,7 +615,11 @@ export default function App() {
                       return row ? `${row.codigo} — ${row.nombre}` : label;
                     }}
                   />
-                  <Bar dataKey="variacion" name="Variación %" radius={[4, 4, 0, 0]}>
+                  <Bar
+                    dataKey="variacion"
+                    name="Variación %"
+                    radius={[4, 4, 0, 0]}
+                  >
                     {comparisonData.map((entry, index) => (
                       <Cell
                         key={`c-${index}`}
