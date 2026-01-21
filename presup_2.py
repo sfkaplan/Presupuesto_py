@@ -65,7 +65,7 @@ st.caption("Deploy en Streamlit Cloud (sin Vite/CRA/Next): React + Recharts via 
 # Inyectamos el dataset dentro del HTML para evitar fetch/rutas
 data_json = json.dumps(payload, ensure_ascii=False)
 
-html = f"""
+html = """
 <!doctype html>
 <html>
   <head>
