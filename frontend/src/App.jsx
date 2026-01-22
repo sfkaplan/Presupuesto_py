@@ -305,16 +305,31 @@ export default function App() {
       .slice(0, 15);
   }, [records]);
 
-  // Selector: unión de ambos top-15
+  // =========================
+  // Selector: restringido SOLO a organismos con desglose cargado
+  // =========================
   const selectableEntities = useMemo(() => {
-    const s = new Set();
-    top15Monto2026.forEach((r) => s.add(r.organismo));
-    top15VarPos.forEach((r) => s.add(r.organismo));
-    return Array.from(s).sort((a, b) => a.localeCompare(b));
-  }, [top15Monto2026, top15VarPos]);
+    // Mantener estos 3 (aunque en pgn.json estén en MAYÚSCULAS; igual matchea por norm)
+    const allowed = [
+      "Ministerio de Educación y Ciencias",
+      "Ministerio de Economía y Finanzas",
+      "Instituto de Previsión Social"
+    ];
+
+    // Si querés que sólo aparezcan los que existan en el JSON incremental:
+    const dict = organismosPorObjeto?.organismos || {};
+    const dictKeys = Object.keys(dict);
+
+    // Tomamos el nombre "canónico" tal como está en organismos_por_objeto.json (dictKeys)
+    // para evitar líos de case/acentos.
+    const picked = allowed
+      .map((a) => dictKeys.find((k) => norm(k) === norm(a)) || a)
+      .filter((v, i, arr) => v && arr.indexOf(v) === i);
+
+    return picked.sort((a, b) => a.localeCompare(b));
+  }, []);
 
   const [selectedEntity, setSelectedEntity] = useState(() => {
-    // Preferir MEC si está en la lista (aunque venga con distinto case/acentos)
     const wanted = "Ministerio de Educación y Ciencias";
     const found =
       selectableEntities.find((x) => norm(x) === norm(wanted)) ||
@@ -398,9 +413,13 @@ export default function App() {
     const sum2026 = sumObj(entityData.pgn2026);
 
     const total2025 =
-      Number(entityData.totales?.["2025"]) || Number(entityData.totales?.[2025]) || sum2025;
+      Number(entityData.totales?.["2025"]) ||
+      Number(entityData.totales?.[2025]) ||
+      sum2025;
     const total2026 =
-      Number(entityData.totales?.["2026"]) || Number(entityData.totales?.[2026]) || sum2026;
+      Number(entityData.totales?.["2026"]) ||
+      Number(entityData.totales?.[2026]) ||
+      sum2026;
 
     const variacion =
       total2025 > 0 ? ((total2026 - total2025) / total2025) * 100 : 0;
@@ -457,7 +476,7 @@ export default function App() {
       {/* Selector organismo */}
       <div className="card" style={{ marginTop: 16 }}>
         <label className="label">
-          📊 Seleccionar Organismo (desglose por objeto: real si está cargado)
+          📊 Seleccionar Organismo (solo disponibles con desglose cargado)
         </label>
 
         <select
@@ -477,13 +496,6 @@ export default function App() {
           </span>
           <span className="chip chip-purple">{entityData?.nivel ?? "—"}</span>
         </div>
-
-        {!entityData && (
-          <div className="muted" style={{ marginTop: 10 }}>
-            ⚠️ Desglose por objeto aún no cargado para este organismo. (Cargalo
-            en <span className="mono">organismos_por_objeto.json</span>)
-          </div>
-        )}
       </div>
 
       {/* KPIs */}
@@ -497,10 +509,14 @@ export default function App() {
           <div className="kpiValue">{formatGs(totalData.total2026)}</div>
         </div>
         <div
-          className={`card ${totalData.variacion >= 0 ? "cardGreen" : "cardRed"}`}
+          className={`card ${
+            totalData.variacion >= 0 ? "cardGreen" : "cardRed"
+          }`}
         >
           <div
-            className={`kpiLabel ${totalData.variacion >= 0 ? "green" : "red"}`}
+            className={`kpiLabel ${
+              totalData.variacion >= 0 ? "green" : "red"
+            }`}
           >
             Variación
           </div>
