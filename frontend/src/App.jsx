@@ -678,10 +678,17 @@ export default function App() {
                       background: "#1e293b",
                       border: "1px solid #334155",
                       borderRadius: 10,
-                      fontSize: 12
+                      color: "#f8fafc"   // ⬅ texto blanco
+                    }}
+                    itemStyle={{
+                      color: "#f8fafc"   // ⬅ texto blanco (líneas internas)
+                    }}
+                    labelStyle={{
+                      color: "#e5e7eb"   // ⬅ título un poco más suave
                     }}
                     formatter={(v) => formatGs(v)}
                   />
+
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -714,10 +721,17 @@ export default function App() {
                       background: "#1e293b",
                       border: "1px solid #334155",
                       borderRadius: 10,
-                      fontSize: 12
+                      color: "#f8fafc"   // ⬅ texto blanco
+                    }}
+                    itemStyle={{
+                      color: "#f8fafc"   // ⬅ texto blanco (líneas internas)
+                    }}
+                    labelStyle={{
+                      color: "#e5e7eb"   // ⬅ título un poco más suave
                     }}
                     formatter={(v) => formatGs(v)}
                   />
+
                 </PieChart>
               </ResponsiveContainer>
             </div>
